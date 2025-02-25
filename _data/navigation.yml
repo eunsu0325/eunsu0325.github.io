@@ -1,14 +1,33 @@
-# main links
+# _data/navigation.yml
+
 main:
-  - title : "Category"
-    url : /categories/
-  - title : "Tag"
-    url : /tags/
+  - title: "Category"
+    url: /categories/
+  - title: "Tag"
+    url: /tags/
+  - title: "Search"
+    url: 
   # - title: "About"
-  #   url: https://mmistakes.github.io/minimal-mistakes/about/
+  #   url: /about/
   # - title: "Sample Posts"
   #   url: /year-archive/
   # - title: "Sample Collections"
   #   url: /collection-archive/
   # - title: "Sitemap"
   #   url: /sitemap/
+
+
+docs:
+  - title: "대목차1"
+    children: 
+      - title: "Category"
+        url: /categories/
+      - title: "Tag"
+        url: /tags/
+
+  - title: "대목차2"
+    children:
+      - title: "Category"
+        url: /categories/
+      - title: "Tag"
+        url: /tags/
