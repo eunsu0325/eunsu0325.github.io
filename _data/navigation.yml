@@ -1,5 +1,3 @@
-# _data/navigation.yml
-
 main:
   - title: "Category"
     url: /categories/
@@ -7,27 +5,22 @@ main:
     url: /tags/
   - title: "Search"
     url: 
-  # - title: "About"
-  #   url: /about/
-  # - title: "Sample Posts"
-  #   url: /year-archive/
-  # - title: "Sample Collections"
-  #   url: /collection-archive/
-  # - title: "Sitemap"
-  #   url: /sitemap/
-
 
 docs:
-  - title: "대목차1"
+  - title: "논문 리뷰"
     children: 
-      - title: "Category"
-        url: /categories/
-      - title: "Tag"
-        url: /tags/
+      - title: "자연어처리 (NLP)"
+        url: /category/nlp/
+      - title: "컴퓨터 비전 (CV)"
+        url: /category/cv/
+      - title: "강화 학습"
+        url: /category/rl/
 
-  - title: "대목차2"
+  - title: "딥러닝 공부"
     children:
-      - title: "Category"
-        url: /categories/
-      - title: "Tag"
-        url: /tags/
+      - title: "PyTorch"
+        url: /category/pytorch/
+      - title: "모델 최적화"
+        url: /category/optimization/
+      - title: "객체지향 프로그래밍"
+        url: /category/oop/
