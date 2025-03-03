@@ -1,27 +1,121 @@
-<nav class="nav__list">
-  {% if page.sidebar.title %}<h3 class="nav__title" style="padding-left: 0;">{{ page.sidebar.title }}</h3>{% endif %}
-  <input id="ac-toc" name="accordion-toc" type="checkbox" />
-  <label for="ac-toc">{{ site.data.ui-text[site.locale].menu_label | default: "Toggle Menu" }}</label>
-  <ul class="nav__items">
-    {% for navname in include.nav %}
-      {% assign navigation = site.data.navigation[navname] %}
-      {% for nav in navigation %}
-        <li>
-          {% if nav.url %}
-            <a href="{{ nav.url | relative_url }}"><span class="nav__sub-title">{{ nav.title }}</span></a>
-          {% else %}
-            <span class="nav__sub-title">{{ nav.title }}</span>
-          {% endif %}
+{% assign navigation = site.data.navigation[include.nav] %}
 
-          {% if nav.children != null %}
-          <ul>
-            {% for child in nav.children %}
-              <li><a href="{{ child.url | relative_url }}"{% if child.url == page.url %} class="active"{% endif %}>{{ child.title }}</a></li>
-            {% endfor %}
-          </ul>
+{%- comment -%}
+  기존 global 변수들(카테고리 최대, 태그 최대)은 그대로 두었음.
+{%- endcomment -%}
+{% assign categories_max = 0 %}
+{% for category in site.categories %}
+  {% if category[1].size > categories_max %}
+    {% assign categories_max = category[1].size %}
+  {% endif %}
+{% endfor %}
+
+{% assign tags_max = 0 %}
+{% for tag in site.tags %}
+  {% if tag[1].size > tags_max %}
+    {% assign tags_max = tag[1].size %}
+  {% endif %}
+{% endfor %}
+
+<nav class="custom-nav">
+  <!-- DL (Deep Learning) 섹션 -->
+  <h2>Deep Learning</h2>
+  <ul>
+    {%- assign dl_tags = "" | split: "" -%}
+    {%- for post in site.posts -%}
+      {% if post.categories contains "DL" %}
+        {%- for tag in post.tags -%}
+          {%- unless dl_tags contains tag -%}
+            {%- assign dl_tags = dl_tags | push: tag -%}
+          {%- endunless -%}
+        {%- endfor -%}
+      {% endif %}
+    {%- endfor -%}
+
+    {%- assign dl_tag_counts = "" | split: "" -%}
+    {%- for t in dl_tags -%}
+      {%- assign count = 0 -%}
+      {%- for post in site.posts -%}
+        {% if post.categories contains "DL" and post.tags contains t %}
+          {%- assign count = count | plus: 1 -%}
+        {% endif %}
+      {%- endfor -%}
+      {%- capture tag_count_pair -%}{{ t }}:{{ count }}{%- endcapture -%}
+      {%- assign dl_tag_counts = dl_tag_counts | push: tag_count_pair -%}
+    {%- endfor -%}
+
+    {%- for t in dl_tags -%}
+      {%- assign count = 0 -%}
+      {%- for post in site.posts -%}
+        {% if post.categories contains "DL" and post.tags contains t %}
+          {%- assign count = count | plus: 1 -%}
+        {% endif %}
+      {%- endfor -%}
+      <li>
+        <a href="/tags/{{ t | slugify }}/">
+          {{ t }} ({{ count }})
+        </a>
+      </li>
+    {%- endfor -%}
+  </ul>
+
+  <!-- REVIEW (Paper-Review) 섹션 -->
+  <h2>Review of Paper</h2>
+  <ul>
+    {%- assign review_tags = "" | split: "" -%}
+    {%- for post in site.posts -%}
+      {% if post.categories contains "paper-review" %}
+        {%- for tag in post.tags -%}
+          {%- unless review_tags contains tag -%}
+            {%- assign review_tags = review_tags | push: tag -%}
+          {%- endunless -%}
+        {%- endfor -%}
+      {% endif %}
+    {%- endfor -%}
+
+    {%- for t in review_tags -%}
+      {%- assign count = 0 -%}
+      {%- for post in site.posts -%}
+        {% if post.categories contains "paper-review" and post.tags contains t %}
+          {%- assign count = count | plus: 1 -%}
+        {% endif %}
+      {%- endfor -%}
+      <li>
+        <a href="/tags/{{ t | slugify }}/">
+          {{ t }} ({{ count }})
+        </a>
+      </li>
+    {%- endfor -%}
+  </ul>
+
+  <!-- 기타 (Others) 섹션 -->
+  <h2>기타</h2>
+  <ul>
+    {%- assign others_tags = "" | split: "" -%}
+    {%- for post in site.posts -%}
+      {%- unless post.categories contains "DL" or post.categories contains "paper-review" -%}
+        {%- for tag in post.tags -%}
+          {%- unless others_tags contains tag -%}
+            {%- assign others_tags = others_tags | push: tag -%}
+          {%- endunless -%}
+        {%- endfor -%}
+      {%- endunless -%}
+    {%- endfor -%}
+
+    {%- for t in others_tags -%}
+      {%- assign count = 0 -%}
+      {%- for post in site.posts -%}
+        {%- unless post.categories contains "DL" or post.categories contains "paper-review" -%}
+          {% if post.tags contains t %}
+            {%- assign count = count | plus: 1 -%}
           {% endif %}
-        </li>
-      {% endfor %}
-    {% endfor %}
+        {%- endunless -%}
+      {%- endfor -%}
+      <li>
+        <a href="/tags/{{ t | slugify }}/">
+          {{ t }} ({{ count }})
+        </a>
+      </li>
+    {%- endfor -%}
   </ul>
 </nav>

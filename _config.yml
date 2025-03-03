@@ -115,7 +115,7 @@ analytics:
 # Site Author
 author:
   name             : "김은수"
-  avatar           : # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
+  avatar           : "/assets/images/avatar.jpeg"
   bio              : "꾸준히만 하자"
   location         : "South Korea"
   email            : "kuma1577@naver.com"
