@@ -1,0 +1,32 @@
+---
+layout: archive
+---
+
+{%- comment -%}
+  layout: archive → Minimal Mistakes의 "archive" 레이아웃을 상속
+  그 안에 있는 컨테이너/스타일 덕분에 "가운데 정렬" 형태가 나옴
+{%- endcomment -%}
+
+{%- assign tag_posts = site.posts | where_exp: "post", "post.tags contains page.term" -%}
+
+{%- if tag_posts == empty -%}
+  <p>No posts found for tag "{{ page.term }}".</p>
+{%- else -%}
+  <div class="archive">
+    <h1 id="page-title" class="page__title">Tag: {{ page.term }}</h1>
+
+    <div class="archive__posts">
+      {%- for post in tag_posts -%}
+        <article class="archive__item">
+          <!-- 글 제목만 -->
+          <h2 class="archive__item-title">
+            <a href="{{ post.url }}">{{ post.title }}</a>
+          </h2>
+          {%- comment -%}
+            excerpt나 본문을 출력하지 않으면, 글 제목만 보이게 됨
+          {%- endcomment -%}
+        </article>
+      {%- endfor -%}
+    </div>
+  </div>
+{%- endif -%}

@@ -12,7 +12,7 @@ permalink: /tags/cnn/
     {% if tag_posts == empty %}
       <p>해당 태그(cnn)의 글이 없습니다.</p>
     {% else %}
-      {% for post in tag_posts %}
+      {% for post in tag_posts %}  
         <article class="archive__item">
           <!-- 글 제목만 보여주기 -->
           <h2 class="archive__item-title">

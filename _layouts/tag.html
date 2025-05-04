@@ -1,0 +1,25 @@
+---
+layout: default
+---
+
+<div class="page-content">
+  <h1>{{ page.term }}</h1>
+
+  {% assign tag_posts = site.posts | where_exp: "post", "post.tags contains page.term" %}
+  
+  {% if tag_posts == empty %}
+    <p>No posts found for tag "{{ page.term }}".</p>
+  {% else %}
+    {% for post in tag_posts %}
+      <article>
+        <!-- 글 제목만 -->
+        <h2><a href="{{ post.url }}">{{ post.title }}</a></h2>
+
+        <!-- 날짜 (선택) -->
+        <time datetime="{{ post.date | date_to_xmlschema }}">
+          {{ post.date | date: "%Y-%m-%d" }}
+        </time>
+      </article>
+    {% endfor %}
+  {% endif %}
+</div>

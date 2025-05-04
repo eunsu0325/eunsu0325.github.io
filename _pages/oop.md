@@ -1,7 +1,7 @@
 ---
 layout: single
 title: "OOP"
-permalink: /tags/oop/
+permalink: /tags/oop/ 
 taxonomy: tags
 term: "oop"
 author_profile: true
